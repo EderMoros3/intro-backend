@@ -11,4 +11,5 @@ const logger = (req, res, next) => {
 
 // exporta unicamente logger (por defecto)
 // sino export const logger = 
+// solo puede haber uno por archivo que quiero importar
 export default logger;
