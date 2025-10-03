@@ -10,7 +10,7 @@ app.use(express.json());
 // Endpoint raiz
 app.get('/', (req, res) => { //request y response
     res.send({
-        mensaje: 'Hola mundo desde mi primer servidor con Express'
+        mensaje: 'Hola mundo desde mi segundo servidor con Express'
     });
 })
 
