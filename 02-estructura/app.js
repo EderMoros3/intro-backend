@@ -1,6 +1,7 @@
 import express from 'express';
 
-const PORT = 80; // Puerto por defecto para HTTP
+const PORT = process.env.PORT || 3000; 
+// Si existe el valor coje ese valor, sino el puerto 80
 
 const app = express();
 
