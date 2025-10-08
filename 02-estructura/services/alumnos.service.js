@@ -9,8 +9,8 @@ import { alumnos } from '../db/memory.js';
 
 export const getAlumnosFromDb = () => {
 
-    // SELECT * FROM users;
+    // SELECT * FROM alumnos;
 
-    
+
     return alumnos;
 }
