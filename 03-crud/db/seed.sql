@@ -18,3 +18,12 @@ CREATE TABLE pedidos (
 	descripcion TEXT,
 	cantidad INT CHECK(cantidad > 0)	
 );
+
+DROP TABLE IF EXISTS logs;
+CREATE TABLE logs (
+	id_log SERIAL PRIMARY KEY,
+	fecha TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+	metodo VARCHAR(10) NOT NULL,
+	url VARCHAR(255) NOT NULL,
+	ip VARCHAR(45) NOT NULL
+);

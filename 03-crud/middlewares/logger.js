@@ -1,4 +1,6 @@
 import { log } from 'console';
+import { logRequest } from '../services/logs.service.js';
+
 import fs from 'fs';
 // Para acceder al sistema de archivos del ordenador que ejecute esto
 import path from 'path';
@@ -15,7 +17,11 @@ const logger = (req, res, next) => {
   const date = today.toISOString().slice(0, 10) // "YYYY-MM-DD" en UTC
 
   let logPath = path.resolve('./logs/'); // Ruta absoluta de la carpeta logs
-  
+
+  // Guardar en base de datos
+  logRequest(today.toISOString(), req.method, req.url, req.socket.remoteAddress);
+
+  // Guardar en fichero
   if(!fs.existsSync(logPath)){
     fs.mkdirSync(logPath);
   }
@@ -30,7 +36,7 @@ const logger = (req, res, next) => {
       }
     }
   )
-    
+
   next();
 }
 
