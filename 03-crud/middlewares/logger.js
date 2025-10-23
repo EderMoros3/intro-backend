@@ -1,16 +1,28 @@
+import { log } from 'console';
 import fs from 'fs';
 // Para acceder al sistema de archivos del ordenador que ejecute esto
-//import path from 'path';
+import path from 'path';
 
 const logger = (req, res, next) => {
 
-  const string = `[${new Date().toISOString()}] ${req.method} - ${req.url} - ${req.ip} - ${req.socket.remoteAddress}`;
+  const today = new Date();
+  const __dirname = path.resolve();
+  // Devuelve la ruta del proyecto en el formato del SO
+
+  const string = `[${today.toISOString()}] ${req.method} - ${req.url} - ${req.ip} - ${req.socket.remoteAddress}`;
   console.log(string);
 
-  //hacer que se cree un fichero por dia y guaradar esos logs ahi
-  const date = new Date().toISOString().split('T')[0];
+  const date = today.toISOString().slice(0, 10) // "YYYY-MM-DD" en UTC
+
+  let logPath = path.resolve('./logs/'); // Ruta absoluta de la carpeta logs
   
-  fs.appendFile(`./logs/${date}-request.log`,
+  if(!fs.existsSync(logPath)){
+    fs.mkdirSync(logPath);
+  }
+
+  logPath = path.join(logPath, date + '.log');
+  
+  fs.appendFile(logPath,
     string + '\n',
     (err) => {
       if (err) {
