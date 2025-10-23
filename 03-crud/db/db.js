@@ -17,6 +17,7 @@ const config = {
   port: process.env.DB_PORT,
 };
 
+// Iniciar un cliente de conexion
 const pool = new Pool(config);
 
 export default pool;
