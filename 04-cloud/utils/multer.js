@@ -3,11 +3,6 @@ import path from "path";
 import ENV from "./envLoader.js";
 import fs from "fs";
 
-// ./cloud/storage
-if(!fs.existsSync(ENV.CLOUD_STORAGE_PATH)) {
-  fs.mkdirSync(ENV.CLOUD_STORAGE_PATH, { recursive: true }); // mkdir -p
-  // recursive: crea directorios padres si no existen
-}
 
 const storage = multer.diskStorage({
 
