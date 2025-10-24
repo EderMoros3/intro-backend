@@ -1,0 +1,34 @@
+import multer from "multer";
+import path from "path";
+import ENV from "./envLoader.js";
+import fs from "fs";
+
+// ./cloud/storage
+if(!fs.existsSync(ENV.CLOUD_STORAGE_PATH)) {
+  fs.mkdirSync(ENV.CLOUD_STORAGE_PATH, { recursive: true }); // mkdir -p
+  // recursive: crea directorios padres si no existen
+}
+
+const storage = multer.diskStorage({
+
+  // Define el directorio donde se guarden los ficheros
+  // cb = function cb (error, dato);
+
+  destination: ENV.CLOUD_STORAGE_PATH,
+
+  // el _ significa que no usamos ese parametro
+  filename: (_req, file, cb) => {
+    // basename: ../.. /etc/passwd.conf  => passwd.conf
+    // filtra la ruta para evitar ataques de path traversal
+    const safeName = path.basename(file.originalname)
+    
+    cb(null, safeName)
+  }
+});
+
+export const upload = multer({
+  storage: storage,
+  limits: {
+    fileSize: ENV.MAX_FILE_SIZE_MB * 1024 * 1024 // 50 MB
+  }
+})
