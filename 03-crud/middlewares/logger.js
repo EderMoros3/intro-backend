@@ -1,4 +1,3 @@
-import { log } from 'console';
 import { logRequest } from '../services/logs.service.js';
 
 import fs from 'fs';
