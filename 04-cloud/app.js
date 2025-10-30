@@ -2,17 +2,20 @@ import express from 'express';
 import fileRouter from './routes/file.router.js';
 import ENV from './utils/envLoader.js'; 
 import fs from 'fs';
+import logger from './utils/logger.js';
 
 const app = express();
 
 // Middlewares
 app.use(express.json());
+app.use(logger);
 
 // ./cloud/storage
 if(!fs.existsSync(ENV.CLOUD_STORAGE_PATH)) {
   fs.mkdirSync(ENV.CLOUD_STORAGE_PATH, { recursive: true }); // mkdir -p
   // recursive: crea directorios padres si no existen
 }
+
 
 app.get('/', (req, res) => {
   res.send('Hello, Cloud!');

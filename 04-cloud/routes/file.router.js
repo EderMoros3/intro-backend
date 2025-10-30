@@ -1,7 +1,8 @@
 import { Router } from 'express';
 
 import { listFilesWithStats } from '../services/file.service.js'
-
+import { upload } from '../utils/multer.js';
+import ENV from '../utils/envLoader.js';
 
 const router = Router();
 
@@ -10,6 +11,16 @@ router.get('/file',async (req, res) => {
   res.json(files);
 }); // Listar archivos
 
-//router.post('/file', ); // Subir archivos
+router.post('/file', upload.single('fichero'),  async (req, res) => {
+  const file = req.file;
+
+})
+
+router.get('/file/:filename', (req, res) => {
+  const filename = req.params.filename;
+  const filePath = `${ENV.CLOUD_STORAGE_PATH}/${filename}`;
+
+  res.download(filePath)
+}); // Descargar archivo
 
 export default router;
