@@ -10,7 +10,6 @@ const app = express();
 // Middlewares
 app.use(express.json());
 
-// Middleware de loggeo
 
 // Cargar rutas
 app.use('/api', mainRouter);
@@ -18,18 +17,19 @@ app.use('/api', mainRouter);
 
 // Conectarse a la DB
 pool.connect()
-  .then(() =>{
-    console.log('✅ Conectado a la base de datos');
-
-    // Se desconecta el cliente para el resto de conexiones
-    // client.release();
-  }).catch((error) => {
-    console.error('❌ Error al conectar a la base de datos', error);
-  })
-
-
+.then(() =>{
+  console.log('✅ Conectado a la base de datos');
+  
+  // Se desconecta el cliente para el resto de conexiones
+  // client.release();
+}).catch((error) => {
+  console.error('❌ Error al conectar a la base de datos', error);
+})
 
 
+
+
+// Middleware de loggeo
 
 app.use(logger);
 
